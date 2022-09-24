@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ import com.example.microservices.openfeign.CurrencyExchangeServiceProxy;
 @RequestMapping("/currency-converter")
 public class CurrencyConversionController {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private CurrencyExchangeServiceProxy serviceProxy;
 	
@@ -41,6 +45,7 @@ public class CurrencyConversionController {
 	public CurrencyConversion convertCurrencyFeign(@PathVariable String fromCurrency, 
 			@PathVariable String toCurrency, @PathVariable BigDecimal quantity) {
 		CurrencyConversion response = serviceProxy.retrieveExchangeValue(fromCurrency, toCurrency);
+		logger.info("{}", response);
 		return new CurrencyConversion(response.getId(), fromCurrency, toCurrency, 
 				response.getConversionRate(), quantity, 
 				quantity.multiply(response.getConversionRate()), response.getPort());

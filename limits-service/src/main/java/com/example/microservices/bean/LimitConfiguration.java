@@ -1,15 +1,15 @@
 package com.example.microservices.bean;
 
-public class LimitsConfiguration {
+public class LimitConfiguration {
 
 	private int maximum;
 	private int minimum;
 	
-	protected LimitsConfiguration() {
+	protected LimitConfiguration() {
 		
 	}
 	
-	public LimitsConfiguration(int maximum, int minimum) {
+	public LimitConfiguration(int maximum, int minimum) {
 		super();
 		this.maximum = maximum;
 		this.minimum = minimum;
